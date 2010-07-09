@@ -1,6 +1,9 @@
 require 'formula'
 
-class Encfs <Formula
+# Require ifuse to get the base class
+require "#{File.dirname __FILE__}/ifuse.rb"
+
+class Encfs <FuseFormula
   url 'http://encfs.googlecode.com/files/encfs-1.6-1.tgz'
   homepage 'http://www.arg0.net/encfs'
   md5 'db99570557cf432cca088748944fb74a'
@@ -9,14 +12,6 @@ class Encfs <Formula
   depends_on 'gettext'
   depends_on 'boost'
   depends_on 'rlog'
-
-  def caveats
-    <<-EOS.undent
-      encfs requires MacFUSE 2.6 or later to be installed.
-      You can find MacFUSE at:
-        http://code.google.com/p/macfuse/
-    EOS
-  end
 
   def install
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"

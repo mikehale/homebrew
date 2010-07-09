@@ -1,6 +1,9 @@
 require 'formula'
 
-class Djmount <Formula
+# Require ifuse to get the base class
+require "#{File.dirname __FILE__}/ifuse.rb"
+
+class Djmount <FuseFormula
   url 'http://downloads.sourceforge.net/project/djmount/djmount/0.71/djmount-0.71.tar.gz'
   homepage 'http://djmount.sourceforge.net/'
   md5 'c922753e706c194bf82a8b6ca77e6a9a'
@@ -9,13 +12,6 @@ class Djmount <Formula
 
   def patches
     { :p0 => DATA }
-  end
-
-  def caveats
-    <<-EOS.undent
-    This depends on the MacFUSE installation from http://code.google.com/p/macfuse/
-    MacFUSE must be installed prior to installing this formula.
-    EOS
   end
 
   def install
