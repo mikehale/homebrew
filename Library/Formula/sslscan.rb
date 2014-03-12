@@ -8,10 +8,20 @@ class Sslscan < Formula
   # Remove hardcoded gcc in Makefile
   patch :DATA
 
+  depends_on 'openssl' => :recommended
+
   def install
+    if build.with? 'openssl'
+      ENV["CPPFLAGS"] = "-I #{opensssl_dir}/include"
+      ENV["LDFLAGS"] = "-L #{opensssl_dir}/lib"
+    end
     system "make"
     bin.install "sslscan"
     man1.install "sslscan.1"
+  end
+
+  def opensssl_dir
+    "#{HOMEBREW_PREFIX}/opt/openssl"
   end
 
   test do
